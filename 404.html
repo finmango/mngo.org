@@ -22,7 +22,7 @@
     async function process(slug) {
 
         // Read the links CSV file, go to 404 in case of failure
-        const linksUrl = new URL('https://mngo.org/links.csv');
+        const linksUrl = new URL('https://docs.google.com/spreadsheets/d/e/2PACX-1vSkc515CXkML0Katly2_2tUqM3hZ-2oqS_kZ91Bzjg_uTH-FzbGtO0ODvOQ7HygQvYKh-umCmseHy7Y/pub?gid=0&single=true&output=csv');
         linksUrl.searchParams.append('path', slug);
         const res = await fetch(linksUrl);
         if (!res.ok) return NOT_FOUND;
