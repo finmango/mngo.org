@@ -74,7 +74,7 @@
     inputElement.focus();
 
     // Update the QR code as the user types
-    inputElement.addEventListener('keydown', event => {
+    inputElement.addEventListener('keyup', event => {
         draw(inputElement.value);
     });
 </script>
