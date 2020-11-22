@@ -17,17 +17,24 @@ if __name__ == "__main__":
     with open("config.json", "r") as fd:
         config = json.load(fd)
 
-    # Create a /public folder and ensure it's empty
+    # Make sure that the public folder is empty
     public = Path(__file__).parent / "public"
     if public.exists():
         shutil.rmtree(public)
+
+    # Create the public folder
     public.mkdir()
 
     # Publish the output under the /public folder as 404.html to catch all routes
     with open(public / "404.html", "w") as fd:
         fd.write(render("index.tpl.html", **config))
 
-    # Publish our custom 404 page undet the /public folder
+    # Publish our custom 404 page under the /public folder
     with open(public / "not-found.html", "w") as fd:
         fd.write(render("not-found.tpl.html", **config))
+
+    # Publish the QR code generator into the /public/admin folder
+    (public / "admin").mkdir()
+    shutil.copy("mango.png", public / "admin" / "mango.png")
+    shutil.copy("qrgen.html", public / "admin" / "qrgen.html")
 

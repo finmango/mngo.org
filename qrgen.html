@@ -1,0 +1,80 @@
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/easyqrcodejs@4.0.0/dist/easy.qrcode.min.js"></script>
+    <style>
+        .wide {
+            margin-left: auto;
+            margin-right: auto;
+            width: 90%;
+            max-width: 512px;
+        }
+
+        #dummy:after {
+            content: "";
+            display: block;
+            padding-bottom: 100%;
+        }
+
+        #form {
+            font-family: Arial, Helvetica, sans-serif;
+            display: flex;
+            line-height: 2em;
+            font-size: xx-large;
+            padding-bottom: 8px;
+        }
+
+        #path {
+            flex-grow: 1;
+            font-size: xx-large;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="form" class="wide">
+        <span>mngo.org/</span>
+        <input type="text" id="path" />
+    </div>
+    <div id="dummy" class="wide"></div>
+    <div id="qr" class="wide"></div>
+</body>
+
+<script>
+    // Get the size of the dummy element and remove it
+    const dummy = document.querySelector('#dummy');
+    const qrSize = dummy.clientWidth;
+    dummy.remove();
+
+    // Get a reference of HTML elements
+    const qrElement = document.querySelector('#qr')
+    const inputElement = document.querySelector('#path');
+
+    function draw(text) {
+
+        // Options
+        var options = {
+            text: `mngo.org/${text}`,
+            width: qrSize,
+            height: qrSize,
+            correctLevel: QRCode.CorrectLevel.H,
+            dotScale: 0.8,
+            logo: "mango.png",
+            logoWidth: qrSize / 2,
+            logoHeight: qrSize / 2,
+            logoBackgroundTransparent: true,
+        };
+
+        // Clear previous images
+        while (qrElement.firstChild) qrElement.removeChild(qrElement.firstChild);
+
+        // Create QRCode Object
+        new QRCode(qrElement, options);
+    }
+
+    // Focus on the input element
+    inputElement.focus();
+
+    // Update the QR code as the user types
+    inputElement.addEventListener('keyup', event => {
+        draw(inputElement.value);
+    });
+</script>
