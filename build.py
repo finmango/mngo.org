@@ -25,6 +25,9 @@ if __name__ == "__main__":
     # Create the public folder
     public.mkdir()
 
+    # Add favicon.ico to the public folder
+    shutil.copy("favicon.ico", public / "favicon.ico")
+
     # Publish the output under the /public folder as 404.html to catch all routes
     with open(public / "404.html", "w") as fd:
         fd.write(render("index.tpl.html", **config))
@@ -37,4 +40,4 @@ if __name__ == "__main__":
     (public / "admin").mkdir()
     shutil.copy("mango.png", public / "admin" / "mango.png")
     shutil.copy("qrgen.html", public / "admin" / "qrgen.html")
-
+    shutil.copy("favicon.ico", public / "admin" / "favicon.ico")
